@@ -29,14 +29,17 @@ public class DateTime {
   }
 
   private static int getWeekDifference(LocalDate startLocalDate, LocalDate endLocalDate) {
+    int endWeek = convertLocalDateToCalendar(endLocalDate).get(Calendar.WEEK_OF_YEAR);
+    int startWeek = convertLocalDateToCalendar(startLocalDate).get(Calendar.WEEK_OF_YEAR);
+    return endWeek - startWeek; 
+  }
+
+  private static Calendar convertLocalDateToCalendar(LocalDate localDate) {
+    // ZoneId zoneId = ZoneId.of("Asia/Kolkata");
     ZoneId zoneId = ZoneId.systemDefault();
-    
-    Calendar startDateCalendar = Calendar.getInstance();
-    startDateCalendar.setTime(Date.from(startLocalDate.atStartOfDay(zoneId).toInstant()));
-    
-    Calendar endDateCalendar = Calendar.getInstance();
-    endDateCalendar.setTime(Date.from(endLocalDate.atStartOfDay(zoneId).toInstant()));
-    
-    return endDateCalendar.get(Calendar.WEEK_OF_YEAR) - startDateCalendar.get(Calendar.WEEK_OF_YEAR);
+    Calendar calendar = Calendar.getInstance();
+    Date date = Date.from(localDate.atStartOfDay(zoneId).toInstant());
+    calendar.setTime(date);
+    return calendar;
   }
 }
