@@ -28,14 +28,14 @@ public class DateTime {
     return date;
   }
 
-  private static int getWeekDifference(LocalDate sDate, LocalDate eDate) {
+  private static int getWeekDifference(LocalDate startLocalDate, LocalDate endLocalDate) {
     ZoneId zoneId = ZoneId.systemDefault();
     
     Calendar startDateCalendar = Calendar.getInstance();
-    startDateCalendar.setTime(Date.from(sDate.atStartOfDay(zoneId).toInstant()));
+    startDateCalendar.setTime(Date.from(startLocalDate.atStartOfDay(zoneId).toInstant()));
     
     Calendar endDateCalendar = Calendar.getInstance();
-    endDateCalendar.setTime(Date.from(eDate.atStartOfDay(zoneId).toInstant()));
+    endDateCalendar.setTime(Date.from(endLocalDate.atStartOfDay(zoneId).toInstant()));
     
     return endDateCalendar.get(Calendar.WEEK_OF_YEAR) - startDateCalendar.get(Calendar.WEEK_OF_YEAR);
   }
